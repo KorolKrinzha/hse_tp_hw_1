@@ -38,9 +38,14 @@ def findByEmail(contactlist:Contacts, email_to_find:str) -> Contacts:
     raise Exception('Почта не найдена')
         
 def findByFullname(contactlist:Contacts, fullname_to_find:str) -> Contacts:
-    for contact in contactlist:
-        contact_fullname = contact.getFullName()
-        if fullname_to_find==contact_fullname: return contact
+    if len(fullname_to_find.split(' '))==3:
+        for contact in contactlist:
+            contact_fullname = contact.getFullName()
+            if fullname_to_find==contact_fullname: return contact
+    if len(fullname_to_find.split(' '))==2:
+        for contact in contactlist:
+            contact_fullname = f"{contact.getLastName()} {contact.getFirstName()}"
+            if fullname_to_find==contact_fullname: return contact
     
     raise Exception('Контакт не найден')
 

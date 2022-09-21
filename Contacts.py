@@ -25,7 +25,17 @@ class Contacts :
     def getFullName(self):
         return self.name
     
-    # отчество
+    def getLastName(self):
+        lastname = self.name.split(' ')[0]
+        return lastname
+    
+    def getFirstName(self):
+        try:
+            firstname = self.name.split(' ')[1]
+        except:
+            return ''
+        return firstname
+    
     def getMiddleName(self):
         try:
             middlename = self.name.split(' ')[2]
@@ -33,13 +43,6 @@ class Contacts :
         except:
             return ''
     
-    def getLastName(self):
-        lastname = self.name.split(' ')[0]
-        return lastname
-    
-    def getFirstName(self):
-        firstname = self.name.split(' ')[1]
-        return firstname
         
         
     
