@@ -1,97 +1,53 @@
-from Contacts import Contacts
-
-def readContactsFile(filename):
-    with open (filename, encoding='utf-8') as f:
-        lines = f.readlines()
-        lines = [line.replace('\n', '') for line in lines]
+from ContactsController import *
+print('Добрйы день! Это система управления контактами. Пожалуйста, введите имя рабочего файла')
+filename = str(input('Файл с контактами: '))
+contact_list = readContactsFile(filename)
+print('Отлично! Ваш список контактов загружен  \n Контакты: ')
+displayContacts(contact_list)
+action_number = 0
+while action_number!=12:
+    print(""" Выберите действие с контактами: 
+                              1 - Все контакты 
+                              2 - Поиск по номеру телефона 
+                              3 - Поиск по почте 
+                              4 - Поиск по ФИО/ФИ 
+                              5 - Поиск по имени 
+                              6 - Поиск по фамилии 
+                              7 - Поиск по отчеству 
+                              8 - Все контакты без почты 
+                              9 - Все контакты без телефона 
+                              10 - Все контакты без телефона и/или почты
+                              11 - Редактирование телефона
+                              12 - закрыть программу""")
+    
+    action_number = int(input('Номер действия: '))
+    if action_number==1:
+        displayContacts(contact_list)
+    elif action_number==2:
         
-        contactlist = []
-        for line in lines:
+        phone_to_find = str(input('Ввдеите номер телефона'))
+        contact = findByPhone(contactlist, phone_to_find)
+        print(contact)
+    elif action_number==3:
+        email_to_find = str(input('Введите почту'))
+        contact = findByEmail(contactlist, email_to_find)
+        print(contact)
+    elif action_number==4:
+        pass
+    elif action_number==5:
+        pass
+    elif action_number==6:
+        pass
+    elif action_number==8:
+        displayContacts(BlankEmail(contact_list))
+    elif action_number==9:
+        displayContacts(BlankPhone(contact_list))
+    elif action_number==10:
+        displayContacts(BlankAll(contact_list))
+    elif action_number==11:
+        pass
+        
+    # actions = {
+    #     1: displayContacts(contactlist)
             
-            name = line.split(',')[0].strip()
-            phone = line.split(',')[1].strip()
-            email = line.split(',')[2].strip()
-             
-            contactlist.append(Contacts(name, email, phone))
-        
-        return contactlist
-        
-    return
-
-contactList = readContactsFile('contacts.txt')
-
-def findByPhone(contactlist:Contacts, phone_to_find:str) -> Contacts:
-    for contact in contactlist:
-        contact_phone = contact.getPhone()
-        if phone_to_find==contact_phone: return contact
-    
-    raise Exception('Телефон не найден')
-
-def findByEmail(contactlist:Contacts, email_to_find:str) -> Contacts:
-    for contact in contactlist:
-        contact_email = contact.getEmail()
-        if email_to_find==contact_email: return contact
-    
-    raise Exception('Почта не найдена')
-        
-def findByFullname(contactlist:Contacts, fullname_to_find:str) -> Contacts:
-    for contact in contactlist:
-        contact_fullname = contact.getFullName()
-        if fullname_to_find==contact_fullname: return contact
-    
-    raise Exception('Контакт не найден')
-
-def findByMiddleName(contactlist:Contacts, middlename_to_find:str) -> Contacts:
-    for contact in contactlist:
-        contact_middlename = contact.getMiddleName()
-        if middlename_to_find==contact_middlename: return contact
-    
-    raise Exception('Контакт не найден')
-    
-def findByFirstName(contactlist:Contacts, firstname_to_find:str) -> Contacts:
-    for contact in contactlist:
-        contact_fistname = contact.getFirstName()
-        if firstname_to_find==contact_fistname: return contact
-    
-    raise Exception('Контакт не найден')
-
-def findByLastName(contactlist:Contacts, lastname_to_find:str) -> Contacts:
-    for contact in contactlist:
-        contact_lastname = contact.getLastName()
-        if lastname_to_find==contact_lastname: return contact
-    
-    raise Exception('Контакт')
-
-def BlankPhone(contactlist:Contacts) -> list:
-    blank_phone_contacts = []
-    for contact in contactlist:
-        if len(contact.getPhone())==0: blank_phone_contacts.append(contact)
-    return blank_phone_contacts
-
-def BlankEmail(contactlist:Contacts) -> list:
-    blank_email_contacts  = []
-    for contact in contactlist:
-        if len(contact.getEmail())==0: blank_email_contacts.append(contact)
-    return blank_email_contacts
-
-def BlankAll(contactlist:Contacts) -> list:
-    blank_phone_contacts = BlankEmail(contactlist)
-    blank_email_contacts = BlankPhone(contactlist)
-    blank_all = list(set(blank_email_contacts+blank_phone_contacts))
-    return blank_all
-# print(findByPhone(contactList, '+79966969669'))
-# print(findByEmail(contactList, 'kolya@gmail.com'))
-# print(findByMiddleName(contactList, 'Сергеевич'))
-# for phone in BlankPhone(contactlist=contactList):
-#     print(phone) 
-    
-for phone in BlankEmail(contactlist=contactList):
-    print(phone) 
-# for phone in BlankAll(contactlist=contactList):
-#     print(phone) 
-
-
-
-        
-
-    
+    # }
