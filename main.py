@@ -1,7 +1,13 @@
 from ContactsController import *
+import sys
 print('Добрйы день! Это система управления контактами. Пожалуйста, введите имя рабочего файла')
 filename = str(input('Файл с контактами: '))
-contactlist = readContactsFile(filename)
+try:
+    contactlist = readContactsFile(filename)
+except:
+    print('Файл не найден')
+    sys.exit()
+    
 print('Отлично! Ваш список контактов загружен  \n Контакты: ')
 displayContacts(contactlist)
 action_number = 0
@@ -51,6 +57,7 @@ while action_number!=12:
         print(findByLastName(contactlist, lastname_to_find))
     
     elif action_number==7:
+        
         middlename_to_find = str(input('Введите отчество для поиска: ')).strip()
         print(findByMiddleName(contactlist, middlename_to_find))
     
@@ -71,7 +78,10 @@ while action_number!=12:
         phone = str(input('Введите новый телефон: '))
         newinfo = {'name': name, 'email': email, 'phone': phone}
         
-        editContact(contactlist, contactid, newinfo)
+        new_contact_dict = editContact(contactlist, contactid, newinfo)
+        writeChanges(new_contact_dict.values(), filename)
+        contactlist = readContactsFile(filename)
+        
         
     elif action_number==12:
         pass

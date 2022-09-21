@@ -12,7 +12,7 @@ def readContactsFile(filename):
             phone = line.split(',')[1].strip()
             email = line.split(',')[2].strip()
              
-            contactlist.append(Contacts(name, email, phone))
+            contactlist.append(Contacts(name, phone, email))
         
         return contactlist
         
@@ -34,14 +34,14 @@ def findByPhone(contactlist:Contacts, phone_to_find:str) -> Contacts:
         contact_phone = contact.getPhone()
         if phone_to_find==contact_phone: return contact
     
-    raise Exception('Телефон не найден')
+    print('Телефон не найден')
 
 def findByEmail(contactlist:Contacts, email_to_find:str) -> Contacts:
     for contact in contactlist:
         contact_email = contact.getEmail()
         if email_to_find==contact_email: return contact
     
-    raise Exception('Почта не найдена')
+    print('Почта не найдена')
         
 def findByFullname(contactlist:Contacts, fullname_to_find:str) -> Contacts:
     if len(fullname_to_find.split(' '))==3:
@@ -53,28 +53,28 @@ def findByFullname(contactlist:Contacts, fullname_to_find:str) -> Contacts:
             contact_fullname = f"{contact.getLastName()} {contact.getFirstName()}"
             if fullname_to_find==contact_fullname: return contact
     
-    raise Exception('Контакт не найден')
+    print('Контакт не найден')
 
 def findByMiddleName(contactlist:Contacts, middlename_to_find:str) -> Contacts:
     for contact in contactlist:
         contact_middlename = contact.getMiddleName()
         if middlename_to_find==contact_middlename: return contact
     
-    raise Exception('Контакт не найден')
+    print('Контакт не найден')
     
 def findByFirstName(contactlist:Contacts, firstname_to_find:str) -> Contacts:
     for contact in contactlist:
         contact_fistname = contact.getFirstName()
         if firstname_to_find==contact_fistname: return contact
     
-    raise Exception('Контакт не найден')
+    print('Контакт не найден')
 
 def findByLastName(contactlist:Contacts, lastname_to_find:str) -> Contacts:
     for contact in contactlist:
         contact_lastname = contact.getLastName()
         if lastname_to_find==contact_lastname: return contact
     
-    raise Exception('Контакт')
+    print('Контакт')
 
 def BlankPhone(contactlist:Contacts) -> list:
     blank_phone_contacts = []
@@ -96,20 +96,21 @@ def BlankAll(contactlist:Contacts) -> list:
 
 
 
-def editContact(contactlist:Contacts, contactid: int, newinfo:dict) -> None:
+def editContact(contactlist:Contacts, contactid: int, newinfo:dict) -> dict:
     editperson = Contacts(newinfo['name'], newinfo['email'], newinfo['phone'])
     
     contacts_dict = {i: contact for i,contact in enumerate(contactlist)}
     contacts_dict[contactid] = editperson
-    writeChanges(contacts_dict.values())
     
     
-    return 
+    
+    
+    return contacts_dict 
 
 def writeChanges(contactlist:Contacts, filename:str) -> None:
-    with open(filename,'w') as f:
+    with open(filename,'w', encoding='utf-8') as f:
         for contact in contactlist:
-            f.write(f"{line}\n")
+            f.write(f"{contact}\n")
     return
 
         

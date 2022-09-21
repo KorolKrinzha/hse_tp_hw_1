@@ -9,7 +9,7 @@ class Contacts :
         self.phone = phone  
         
     def __str__(self):
-        return f"Контакт {self.name}|{self.email}|{self.phone}"
+        return f"{self.name},{self.email},{self.phone}"
 
     
 
