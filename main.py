@@ -1,6 +1,6 @@
 from ContactsController import *
 import sys
-print('Добрйы день! Это система управления контактами. Пожалуйста, введите имя рабочего файла')
+print('Добрый день! Это система управления контактами. Пожалуйста, введите имя рабочего файла')
 filename = str(input('Файл с контактами: '))
 try:
     contactlist = readContactsFile(filename)
