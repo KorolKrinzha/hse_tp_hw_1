@@ -8,6 +8,8 @@ class Contacts :
         self.email = email
         self.phone = phone  
         
+    def __str__(self):
+        return f"Контакт {self.name}|{self.email}|{self.phone}"
 
     
 
