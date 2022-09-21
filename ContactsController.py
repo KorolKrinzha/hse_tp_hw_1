@@ -22,6 +22,12 @@ contactList = readContactsFile('contacts.txt')
 def displayContacts(contactlist:list):
     for contact in contactlist:
         print(contact)
+        
+def displayContactsWithId(contactlist:Contacts):
+    contacts_dict = {i: contact for i,contact in enumerate(contactlist)}
+    for key,value in contacts_dict.items():
+        print(key, ':', value)
+    
 
 def findByPhone(contactlist:Contacts, phone_to_find:str) -> Contacts:
     for contact in contactlist:
@@ -87,18 +93,24 @@ def BlankAll(contactlist:Contacts) -> list:
     blank_email_contacts = BlankPhone(contactlist)
     blank_all = list(set(blank_email_contacts+blank_phone_contacts))
     return blank_all
-# print(findByPhone(contactList, '+79966969669'))
-# print(findByEmail(contactList, 'kolya@gmail.com'))
-# print(findByMiddleName(contactList, 'Сергеевич'))
-# for phone in BlankPhone(contactlist=contactList):
-#     print(phone) 
+
+
+
+def editContact(contactlist:Contacts, contactid: int, newinfo:dict) -> None:
+    editperson = Contacts(newinfo['name'], newinfo['email'], newinfo['phone'])
     
-for phone in BlankEmail(contactlist=contactList):
-    print(phone) 
-# for phone in BlankAll(contactlist=contactList):
-#     print(phone) 
+    contacts_dict = {i: contact for i,contact in enumerate(contactlist)}
+    contacts_dict[contactid] = editperson
+    writeChanges(contacts_dict.values())
+    
+    
+    return 
 
-
+def writeChanges(contactlist:Contacts, filename:str) -> None:
+    with open(filename,'w') as f:
+        for contact in contactlist:
+            f.write(f"{line}\n")
+    return
 
         
 

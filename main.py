@@ -17,8 +17,8 @@ while action_number!=12:
                               8 - Все контакты без почты 
                               9 - Все контакты без телефона 
                               10 - Все контакты без телефона и/или почты
-                              11 - Редактирование телефона
-                              12 - закрыть программу""")
+                              11 - Редактирование контакта
+                              12 - Закрыть программу""")
     
     try:
         action_number = int(input('Номер действия: '))
@@ -64,9 +64,19 @@ while action_number!=12:
         displayContacts(BlankAll(contactlist))
     
     elif action_number==11:
-        pass
+        displayContactsWithId(contactlist)
+        contactid = int(input('Введите номер контакта: '))
+        name = str(input('Введите новый ФИО: '))
+        email = str(input('Введите новый email: '))
+        phone = str(input('Введите новый телефон: '))
+        newinfo = {'name': name, 'email': email, 'phone': phone}
+        
+        editContact(contactlist, contactid, newinfo)
+        
     elif action_number==12:
         pass
+        
+        
     else: 
         print('Данное действие не было найдено. Повторите ввод')
         
