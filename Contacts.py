@@ -13,6 +13,7 @@ class Contacts:
 
 # Created getters for every attribute
 
+
     def getEmail(self):
         return self.email
 
@@ -29,7 +30,7 @@ class Contacts:
     def getFirstName(self):
         try:
             firstname = self.name.split(' ')[1]
-        except:
+        except BaseException:
             return ''
         return firstname
 
@@ -37,5 +38,5 @@ class Contacts:
         try:
             middlename = self.name.split(' ')[2]
             return middlename
-        except:
+        except BaseException:
             return ''
