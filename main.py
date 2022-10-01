@@ -1,17 +1,29 @@
 from ContactsController import *
 import sys
 print('Добрый день! Это система управления контактами. Пожалуйста, введите имя рабочего файла')
+# Reading the DB name
 filename = str(input('Файл с контактами: '))
+# Find if the file is in the directory. If not - end programm
 try:
     contactlist = readContactsFile(filename)
 except:
     print('Файл не найден')
     sys.exit()
-    
+ 
+# Display all contacts 
 print('Отлично! Ваш список контактов загружен  \n Контакты: ')
 displayContacts(contactlist)
+
+# action_number is a variable that matches action we need to do with DB
+# We set it to default 0 and start a while cycle
+# Every cycle iteration we display all possible actions and allow user to choose what to do
+# He chooses what to do and if this option is available we change action_number to that option number
+# We then match action_number to our variants and act accordingly
+# After action ends the script is back to the beginning of the cycle. The user chooses action again   
+
 action_number = 0
 while action_number!=12:
+    # Display all possibilities 
     print(""" Выберите действие с контактами: 
                               1 - Все контакты 
                               2 - Поиск по номеру телефона 
@@ -29,6 +41,7 @@ while action_number!=12:
     try:
         action_number = int(input('Номер действия: '))
     except:
+        # If it is not a number we go to the new while iteration
         print('Ошибка при введении данных. Повторите ввод')
         continue
     
@@ -37,29 +50,46 @@ while action_number!=12:
     
     elif action_number==2:
         phone_to_find = str(input('Ввдеите номер телефона для поиска: ')).strip()
-        print(findByPhone(contactlist, phone_to_find))
+        try:
+            print(findByPhone(contactlist, phone_to_find))
+        except Exception as e:
+            print(str(e))
         
     elif action_number==3:
         email_to_find = str(input('Введите почту для поиска: ')).strip()
-        print(findByEmail(contactlist, email_to_find))
-    
+        try:
+            print(findByEmail(contactlist, email_to_find))
+        except Exception as e:
+            print(str(e))
+            
     elif action_number==4:
         fullname_to_find = str(input('Введите ФИО/ФИ для поиска: ')).strip()
-        print(findByFullname(contactlist, fullname_to_find))
-        pass
-    
+        try:
+            print(findByFullname(contactlist, fullname_to_find))
+        except Exception as e:
+            print(str(e))
+            
     elif action_number==5:
         firstname_to_find = str(input('Введите имя для поиска: ')).strip()
-        print(findByFirstName(contactlist, firstname_to_find))
+        try:
+            print(findByFirstName(contactlist, firstname_to_find))
+        except Exception as e:
+            print(str(e))
     
     elif action_number==6:
         lastname_to_find = str(input('Введите фамилию для поиска: ')).strip()
-        print(findByLastName(contactlist, lastname_to_find))
+        try:
+            print(findByLastName(contactlist, lastname_to_find))
+        except Exception as e:
+            print(str(e))
     
     elif action_number==7:
         
         middlename_to_find = str(input('Введите отчество для поиска: ')).strip()
-        print(findByMiddleName(contactlist, middlename_to_find))
+        try:
+            print(findByMiddleName(contactlist, middlename_to_find))
+        except Exception as e:
+            print(str(e))
     
     elif action_number==8:
         displayContacts(BlankEmail(contactlist))
@@ -84,6 +114,8 @@ while action_number!=12:
         
         
     elif action_number==12:
+        # If it is an option to quit the script we just end the while cycle
+        # With the cycle ends the whole script
         pass
         
         
